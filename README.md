@@ -17,27 +17,6 @@
   </href>
 </div>
 
-## 功能特点
-
-- 支持协议：ShadowSocks, VMess, VLESS, Hysteria2, Trojan, TUIC
-- 支持导入 Base64 的 http/https 订阅链接
-- 一键部署，Vanilla JS + Cloudflare Worker，无需后端
-- 支持客户端：
-  - Sing-Box
-  - Clash
-  - Xray/V2Ray
-- 支持固定/随机短链接生成（基于 KV）
-- 浅色/深色主题切换
-- 灵活的 API，支持脚本化操作
-- 用户友好的 Web 界面，灵活的自定义规则
-  - 提供多种预定义规则集
-  - 可自建关于geo-site, geo-ip, ip-cidr和domain-suffix的自定义策略组
-
-## 部署
-
-### （推荐）自动部署
-
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/7Sageer/sublink-worker)
 
 ### 手动部署
 
@@ -207,8 +186,3 @@ docker run -d \
 
 本项目仅供学习交流使用，请勿用于非法用途。使用本项目所造成的一切后果由使用者自行承担，与开发者无关。
 
-## Star History
-
-感谢所有为本项目点亮 Star 的朋友们！
-
-[![Star History Chart](https://api.star-history.com/svg?repos=7Sageer/sublink-worker&type=Date)](https://star-history.com/#7Sageer/sublink-worker&Date)
