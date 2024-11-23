@@ -48,30 +48,116 @@
 
 ### Docker 部署
 
-1. 安装必要的工具
-```bash
-# 安装 Docker
-curl -fsSL https://get.docker.com | sh
+# Sublink Docker
 
-# 安装 Docker Compose
-sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-```
-2. 克隆项目
+> 基于 Docker 的订阅转换工具，支持多种代理协议和客户端配置生成
+
+## 功能特点
+
+- 支持协议：ShadowSocks, VMess, VLESS, Hysteria2, Trojan, TUIC
+- 支持导入 Base64 的 http/https 订阅链接
+- Docker 容器化部署，简单易用
+- 支持客户端：
+  - Sing-Box
+  - Clash
+  - Xray/V2Ray
+- 支持固定/随机短链接生成
+- 浅色/深色主题切换
+- 灵活的 API，支持脚本化操作
+- 用户友好的 Web 界面，灵活的自定义规则
+  - 提供多种预定义规则集
+  - 可自建关于 geo-site, geo-ip, ip-cidr 和 domain-suffix 的自定义策略组
+
+## 快速开始
+
+### 方式一：使用 Docker Compose（推荐）
+
+1. 克隆项目
 ```bash
-git clone https://github.com/7Sageer/sublink-worker.git
-cd sublink-worker
+git clone https://github.com/Axaxin/sublinkd.git
+cd sublinkd
 ```
-3. 启动服务
+
+2. 启动服务
 ```bash
 docker-compose up -d
 ```
+
 服务将在 `http://localhost:3000` 运行。
 
-### 新手？
-#### [社区贡献视频教程](https://www.youtube.com/watch?v=7abmWqCXPR8)
-> 这是由社区成员制作的教程视频，详细的讲解可以让你快速上手。但是部分内容可能与我们的见解不同，也可能与最新版本存在差异，建议同时参考[官方文档](/docs)
-#### [官方FAQ](/docs/FAQ.md)
+### 方式二：直接使用 Docker 命令
+
+```bash
+docker run -d \
+  --name sublinkd \
+  -p 3000:3000 \
+  -v ./data:/app/data \
+  ghcr.io/axaxin/sublinkd:latest
+```
+
+### 更新到最新版本
+
+```bash
+# 如果使用 docker-compose
+docker-compose pull
+docker-compose up -d
+
+# 如果直接使用 docker
+docker pull ghcr.io/axaxin/sublinkd:latest
+docker stop sublinkd
+docker rm sublinkd
+docker run -d \
+  --name sublinkd \
+  -p 3000:3000 \
+  -v ./data:/app/data \
+  ghcr.io/axaxin/sublinkd:latest
+```
+
+## API 文档
+
+详细的 API 文档可以在 [API-doc.md](/docs/API-doc.md) 中找到。
+
+主要端点包括：
+
+- `/singbox`：生成 Sing-Box 配置
+- `/clash`：生成 Clash 配置
+- `/xray`：生成 Xray 配置
+- `/shorten`：生成短链接
+
+## 配置说明
+
+- 端口：默认使用 3000 端口，可以通过环境变量 `PORT` 修改
+- 数据持久化：数据存储在 `/app/data` 目录，建议挂载到主机目录
+- 环境变量：
+  - `NODE_ENV`：运行环境，默认 `production`
+  - `PORT`：服务端口，默认 3000
+
+## 项目结构
+
+```
+.
+├── src/                     # 源代码目录
+│   ├── index.js            # 主要的服务器逻辑
+│   ├── BaseConfigBuilder.js # 构建基础配置
+│   ├── SingboxConfigBuilder.js # 构建 Sing-Box 配置
+│   ├── ClashConfigBuilder.js   # 构建 Clash 配置
+│   └── ...
+├── docs/                    # 文档目录
+├── Dockerfile              # Docker 构建文件
+└── docker-compose.yml      # Docker Compose 配置文件
+```
+
+## 最近更新
+
+查看 [更新日志](/docs/update-log.md) 了解详细更新内容。
+
+## 问题反馈
+
+如果你在使用过程中遇到任何问题，或者有新的功能建议，欢迎在 [GitHub Issues](https://github.com/Axaxin/sublinkd/issues) 提出。
+
+## 许可证
+
+本项目采用 MIT 许可证，详见 [LICENSE](LICENSE) 文件。
 
 ## API 文档
 
