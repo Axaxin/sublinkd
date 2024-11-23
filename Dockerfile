@@ -1,13 +1,13 @@
 # 构建阶段
-FROM node:18-alpine as builder
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
 # 只复制 package 文件
 COPY package*.json ./
 
-# 只安装生产依赖
-RUN npm ci --only=production
+# 安装依赖（使用 npm install 代替 npm ci，因为没有 package-lock.json）
+RUN npm install --production
 
 # 复制源代码
 COPY . .
@@ -17,8 +17,8 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# 创建存储目录
-RUN mkdir -p /app/data
+# 创建存储目录并设置权限
+RUN mkdir -p /app/data && chown -R node:node /app
 
 # 从构建阶段复制必要文件
 COPY --from=builder /app/node_modules ./node_modules
