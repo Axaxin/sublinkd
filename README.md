@@ -186,3 +186,8 @@ docker run -d \
 
 本项目仅供学习交流使用，请勿用于非法用途。使用本项目所造成的一切后果由使用者自行承担，与开发者无关。
 
+## Star History
+
+感谢所有为本项目点亮 Star 的朋友们！
+
+[![Star History Chart](https://api.star-history.com/svg?repos=7Sageer/sublink-worker&type=Date)](https://star-history.com/#7Sageer/sublink-worker&Date)
